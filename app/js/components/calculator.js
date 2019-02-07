@@ -76,7 +76,7 @@ const Calculator= {
   },
   computed: {
     display() {
-      return `${this.displayNum}`
+      return `${this.displayNum.toPrecision(3)}`
     }
   },
 }
