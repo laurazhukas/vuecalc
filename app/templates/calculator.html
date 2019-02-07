@@ -1,14 +1,10 @@
 <body>
     <div class="container">
             <div class = "calculator">
-                <div class="calcDisplay">{{ display }}</div>
-                <!-- <span style="color:red">{{ welcomeMessage }}</span> -->
+            <div class="calcDisplay">{{display}}</div>
                 <div>
-                    <Buttons v-on:button-clicked="calculateNum">
-                       <!-- <span>{{message}}</span> -->
-                    </Buttons>
+                    <Buttons v-on:button-clicked="calculateNum"></Buttons>
                 </div>
-                
             </div>
      </div>
 </body>

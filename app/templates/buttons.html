@@ -1,23 +1,8 @@
 <div class = calcKeys>
         <button @click="buttonClicked('clear')" class = "importantOperator" id = "clearKey">C</button>
         <div id = "bufferKeys"></div>
-        <button @click="buttonClicked('7')" class = "numberKeys">7</button>
-        <button @click="buttonClicked('8')"class = "numberKeys">8</button>
-        <button @click="buttonClicked('9')" class = "numberKeys">9</button>
-        <button @click="buttonClicked('add')" class = "operator">+</button>
-    
-        <button @click="buttonClicked('4')" class = "numberKeys">4</button>
-        <button @click="buttonClicked('5')" class = "numberKeys">5</button>
-        <button @click="buttonClicked('6')" class = "numberKeys">6</button>
-        <button @click="buttonClicked('subtract')" class = "operator">-</button>
-    
-        <button @click="buttonClicked('3')" class = "numberKeys">3</button>
-        <button @click="buttonClicked('2')" class = "numberKeys">2</button>
-        <button @click="buttonClicked('1')" class = "numberKeys">1</button>
-        <button @click="buttonClicked('multiply')" class = "operator">x</button>
-    
-        <button @click="buttonClicked('0')" class = "numberKeys">0</button>
-        <button @click="buttonClicked('.')" class = "numberKeys">.</button>
-        <button @click="buttonClicked('calculate')" class = "importantOperator">=</button>
-        <button @click="buttonClicked('divide')" class = "operator">÷</button>
+        <template v-for = "(button , index) in buttonArray"> 
+            <button @click="buttonClicked(button.toSend)" 
+            :class = "button.objClass">{{button.display}}</button>
+        </template> 
     </div>

@@ -1,11 +1,5 @@
 /* eslint-disable */
 import Buttons from './button.js'
-let x = 0
-let y = 0
-let switchVariable = false
-let operator = null
-let isNotNumber = false
-let runningSum =0
 const Calculator= {
   name: 'Component',
   props: [],
@@ -16,80 +10,74 @@ const Calculator= {
   },
   data() {
     return {
- 
-      displayNum: '0'
+      displayNum: 0,
+      x: 0,
+      y: 0,
+      switchVariable: false,
+      operator: null,
+      isNotNumber: false,
+      runningSum: 0
     }
   },
   methods : {
-    getResult: function(x,y, operator) {
-      console.log('In the get result function the x val is: '+x + 'the y val is: '+y)
-        switch(operator){
-        case 'add':
+    getResult: function (x,y, operator) {
+      switch (operator) {
+      case 'add':
         return parseFloat(x) + parseFloat(y)
-        case 'subtract':
+      case 'subtract':
         return parseFloat(x) - parseFloat(y)
-        case 'multiply':
+      case 'multiply':
         return parseFloat(x) * parseFloat(y)
-        case 'divide':
+      case 'divide':
         return parseFloat(x) / parseFloat(y)
-        }
+      default:
+        return 'error'
+      }
     },
     clear() {
-      console.log('In computed'),
-      x =0
-      y=0
-      switchVariable = false
-      operator = null
+      this.x =0
+      this.y=0
+      this.switchVariable = false
+      this.operator = null
       this.displayNum = 0
     },
-    // catchClicked : function (val) {
-    //   alert(`A button was clicked, with value of ${val}`)
-    // },
     calculateNum: function (value) {
-      console.log('In calculate Num, was passed: ' + value)
-      isNotNumber = false
-      if (value == 'clear') {
+      this.isNotNumber = false
+      if (value === 'clear') {
         this.clear()
-        isNotNumber = true
+        this.isNotNumber = true
       }
-      if (value == 'calculate') {
-        x = this.getResult(x,y,operator)
-        this.displayNum = x
-        console.log(x)
-        operator = null
-        isNotNumber = true
-        y=0
+      if (value === 'calculate') {
+        this.x = this.getResult(this.x,this.y, this.operator)
+        this.displayNum = this.x
+        this.operator = null
+        this.isNotNumber = true
+        this.y=0
       }
-      if (value == 'add' || value =='subtract'|| value =='multiply'||value =='divide'){
-        if (switchVariable) {
-          console.log('in the switchVar if and x val is: '+x+' y val is: '+y
-          + ' the operator is '+operator + ' the value is: '+value)
-          runningSum = this.getResult(x,y,operator) //pass opperator and compute
-          x= runningSum
-          this.displayNum = parseFloat(x)
-          y=0
+      if (value === 'add' || value ==='subtract'|| value ==='multiply'||value ==='divide') {
+        if (this.switchVariable) {
+          this.runningSum = this.getResult(this.x,this.y,this.operator)
+          this.x= this.runningSum
+          this.displayNum = parseFloat(this.x)
+          this.y=0
         }
-        switchVariable = true
-        operator = value
-        isNotNumber = true
+        this.switchVariable = true
+        this.operator = value
+        this.isNotNumber = true
       }
-      if (switchVariable && !isNotNumber) {
-        y += value
-        this.displayNum = parseFloat(y)
-      } else if (!switchVariable && !isNotNumber) {
-        x += value
-        this.displayNum = parseFloat(x)
+      if (this.switchVariable && !this.isNotNumber) {
+        this.y += value
+        this.displayNum = parseFloat(this.y)
+      } else if (!this.switchVariable && !this.isNotNumber) {
+        this.x += value
+        this.displayNum = parseFloat(this.x)
       }
     }
   },
   computed: {
-    // welcomeMessage() {
-    //   return `Hello ${this.firstname} ${this.lastname}!`
-    // }
     display() {
       return `${this.displayNum}`
     }
   },
-  
 }
 export default Calculator
