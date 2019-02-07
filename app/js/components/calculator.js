@@ -16,6 +16,8 @@ const Calculator= {
   },
   data() {
     return {
+ 
+      displayNum: '0'
     }
   },
   methods : {
@@ -27,9 +29,9 @@ const Calculator= {
         case 'subtract':
         return parseFloat(x) - parseFloat(y)
         case 'multiply':
-        return parseFloat(x)*parseFloat(y)
+        return parseFloat(x) * parseFloat(y)
         case 'divide':
-        return parseFloat(x)/parseFloat(y)
+        return parseFloat(x) / parseFloat(y)
         }
     },
     clear() {
@@ -38,6 +40,7 @@ const Calculator= {
       y=0
       switchVariable = false
       operator = null
+      this.displayNum = 0
     },
     // catchClicked : function (val) {
     //   alert(`A button was clicked, with value of ${val}`)
@@ -51,17 +54,19 @@ const Calculator= {
       }
       if (value == 'calculate') {
         x = this.getResult(x,y,operator)
+        this.displayNum = x
         console.log(x)
         operator = null
         isNotNumber = true
         y=0
       }
-      if (value == 'add' || value =='subtract'|| value=='multiply'||value=='divide'){
+      if (value == 'add' || value =='subtract'|| value =='multiply'||value =='divide'){
         if (switchVariable) {
           console.log('in the switchVar if and x val is: '+x+' y val is: '+y
           + ' the operator is '+operator + ' the value is: '+value)
           runningSum = this.getResult(x,y,operator) //pass opperator and compute
           x= runningSum
+          this.displayNum = parseFloat(x)
           y=0
         }
         switchVariable = true
@@ -70,15 +75,21 @@ const Calculator= {
       }
       if (switchVariable && !isNotNumber) {
         y += value
+        this.displayNum = parseFloat(y)
       } else if (!switchVariable && !isNotNumber) {
         x += value
+        this.displayNum = parseFloat(x)
       }
     }
   },
   computed: {
-    welcomeMessage() {
-      return `Hello ${this.firstname} ${this.lastname}!`
+    // welcomeMessage() {
+    //   return `Hello ${this.firstname} ${this.lastname}!`
+    // }
+    display() {
+      return `${this.displayNum}`
     }
   },
+  
 }
 export default Calculator

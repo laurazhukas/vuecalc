@@ -1,11 +1,11 @@
 <body>
     <div class="container">
             <div class = "calculator">
-                <div class="calcDisplay">0</div>
+                <div class="calcDisplay">{{ display }}</div>
                 <!-- <span style="color:red">{{ welcomeMessage }}</span> -->
                 <div>
                     <Buttons v-on:button-clicked="calculateNum">
-                       <span>{{message}}</span>
+                       <!-- <span>{{message}}</span> -->
                     </Buttons>
                 </div>
                 
