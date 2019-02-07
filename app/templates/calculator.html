@@ -2,9 +2,13 @@
     <div class="container">
             <div class = "calculator">
                 <div class="calcDisplay">0</div>
+                <!-- <span style="color:red">{{ welcomeMessage }}</span> -->
                 <div>
-                    <Buttons></Buttons>
+                    <Buttons v-on:button-clicked="calculateNum">
+                       <span>{{message}}</span>
+                    </Buttons>
                 </div>
+                
             </div>
      </div>
 </body>
