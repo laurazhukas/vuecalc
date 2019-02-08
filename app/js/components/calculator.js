@@ -1,4 +1,3 @@
-/* eslint-disable */
 import Buttons from './button.js'
 const Calculator= {
   name: 'Component',
@@ -16,7 +15,8 @@ const Calculator= {
       switchVariable: false,
       operator: null,
       isNotNumber: false,
-      runningSum: 0
+      runningSum: 0,
+      numPrecision : 3
     }
   },
   methods : {
@@ -41,30 +41,19 @@ const Calculator= {
       this.operator = null
       this.displayNum = 0
     },
-    calculateNum: function (value) {
-      this.isNotNumber = false
-      if (value === 'clear') {
-        this.clear()
-        this.isNotNumber = true
-      }
-      if (value === 'calculate') {
-        this.x = this.getResult(this.x,this.y, this.operator)
-        this.displayNum = this.x
-        this.operator = null
-        this.isNotNumber = true
-        this.y=0
-      }
+    calculate() {
+      this.x = this.getResult(this.x,this.y, this.operator)
+      this.displayNum = this.x
+      this.operator = null
+      this.isNotNumber = true
+      this.y=0
+    },
+    isOperator(value) {
       if (value === 'add' || value ==='subtract'|| value ==='multiply'||value ==='divide') {
-        if (this.switchVariable) {
-          this.runningSum = this.getResult(this.x,this.y,this.operator)
-          this.x= this.runningSum
-          this.displayNum = parseFloat(this.x)
-          this.y=0
-        }
-        this.switchVariable = true
-        this.operator = value
-        this.isNotNumber = true
+        return true
       }
+    },
+    updateVariables(value) {
       if (this.switchVariable && !this.isNotNumber) {
         this.y += value
         this.displayNum = parseFloat(this.y)
@@ -72,11 +61,36 @@ const Calculator= {
         this.x += value
         this.displayNum = parseFloat(this.x)
       }
+    },
+    operatorButtonPressed() {
+      this.runningSum = this.getResult(this.x,this.y,this.operator)
+      this.x= this.runningSum
+      this.displayNum = parseFloat(this.x)
+      this.y=0
+    },
+    calculateNum: function (value) {
+      this.isNotNumber = false
+      if (value === 'clear') {
+        this.clear()
+        this.isNotNumber = true
+      }
+      if (value === 'calculate') {
+        this.calculate()
+      }
+      if (this.isOperator(value)) {
+        if (this.switchVariable) {
+          this.operatorButtonPressed()
+        }
+        this.switchVariable = true
+        this.operator = value
+        this.isNotNumber = true
+      }
+      this.updateVariables(value)
     }
   },
   computed: {
     display() {
-      return `${this.displayNum.toPrecision(3)}`
+      return `${this.displayNum.toPrecision(this.numPrecision)}`
     }
   },
 }
